@@ -1,0 +1,35 @@
+name: 'SecuProbe Security Scan'
+description: 'Run a SecuProbe security scan and fail CI if vulnerabilities above a threshold are found.'
+author: 'SecuProbe'
+
+branding:
+  icon: 'shield'
+  color: 'blue'
+
+inputs:
+  api_key:
+    description: 'SecuProbe API key (sp_live_...)'
+    required: true
+  url:
+    description: 'URL to scan'
+    required: true
+  fail_on_severity:
+    description: 'Minimum severity to fail CI: critical | high | medium | none'
+    required: false
+    default: 'critical'
+  timeout:
+    description: 'Maximum wait time in seconds'
+    required: false
+    default: '600'
+
+outputs:
+  scan_id:
+    description: 'SecuProbe scan ID (UUID)'
+  secu_score:
+    description: 'SecuScore (0–100)'
+  report_url:
+    description: 'URL to the full scan report'
+
+runs:
+  using: 'node20'
+  main: 'dist/index.js'
